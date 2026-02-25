@@ -1,0 +1,6 @@
+{
+	"Operator - Or": {
+		"prefix": "or",
+		"body": "or $0"
+	}
+}

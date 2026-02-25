@@ -1,0 +1,45 @@
+{
+  "publisher": "kesshei",
+  "name": "ll",
+  "displayName": "ll",
+  "description": "Logic programming language 一个支持逻辑语言的编程语言",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.77.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "homepage": "https://github.com/kessheis/logiclanguage#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kessheis/logiclanguage"
+  },
+  "bugs": {
+    "url": "hhttps://github.com/kessheis/logiclanguage/issues"
+  },
+  "icon": "assets/logo.png",
+  "contributes": {
+    "languages": [{
+      "id": "ll",
+      "aliases": ["ll","LogicLanguage","Logic"],
+      "extensions": [".ll"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "ll",
+      "scopeName": "source.ll",
+      "path": "./syntaxes/ll.tmLanguage.json"
+    }],
+    "snippets": [
+      {
+        "language": "ll",
+        "path": "./snippets/operators.json"
+      }
+    ]
+  },
+  "scripts": {
+    "publish": "vsce publish --no-dependencies",
+    "pack": "vsce package --no-dependencies"
+  }
+}
