@@ -19,15 +19,15 @@
     "url": "hhttps://github.com/kessheis/logiclanguage/issues"
   },
   "icon": "assets/logo.png",
-  "activationEvents": [],
+  "activationEvents": [
+    "onDebug:ll-debug",
+    "onDebugResolve:ll-debug"
+  ],
+  "workspaceTrust": {
+    "request": "never"
+  },
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
-      {
-        "command": "ll.helloWorld",
-        "title": "Hello World"
-      }
-    ],
     "languages": [
       {
         "id": "ll",
@@ -53,6 +53,126 @@
       {
         "language": "ll",
         "path": "./snippets/operators.json"
+      }
+    ],
+    "breakpoints": [{"language": "ll"}],
+    "debuggers": [
+      {
+        "type": "ll-debug",
+        "label": "ll Debug",
+        "languages": ["ll"],
+        "program": "./debug/DAPTest.exe",
+        "osx": {"runtime": "daptest"},
+        "linux": {"runtime": "daptest"},
+        "configurationAttributes": {
+          "launch": {
+            "required": [
+              "program"
+            ],
+            "properties": {
+              "program": {
+                "type": "string",
+                "description": "Absolute path to a text file.",
+                "default": "${workspaceFolder}/${command:AskForProgramName}"
+              },
+              "stopOnEntry": {
+                "type": "boolean",
+                "description": "Automatically stop after launch.",
+                "default": true
+              },
+              "trace": {
+                "type": "boolean",
+                "description": "Enable logging of the Debug Adapter Protocol.",
+                "default": true
+              },
+              "compileError": {
+                "type": "string",
+                "description": "Simulates a compile error in 'launch' request.",
+                "enum": [
+                  "default",
+                  "show",
+                  "hide"
+                ],
+                "enumDescriptions": [
+                  "default: show fake compile error to user",
+                  "show fake compile error to user",
+                  "do not show fake compile error to user"
+                ]
+              }
+            }
+          },
+          "attach": {
+            "required": [
+              "program"
+            ],
+            "properties": {
+              "program": {
+                "type": "string",
+                "description": "Absolute path to a text file.",
+                "default": "${workspaceFolder}/${command:AskForProgramName}"
+              },
+              "stopOnEntry": {
+                "type": "boolean",
+                "description": "Automatically stop after attach.",
+                "default": true
+              },
+              "trace": {
+                "type": "boolean",
+                "description": "Enable logging of the Debug Adapter Protocol.",
+                "default": true
+              },
+              "compileError": {
+                "type": "string",
+                "description": "Simulates a compile error in 'attach' request.",
+                "enum": [
+                  "default",
+                  "show",
+                  "hide"
+                ],
+                "enumDescriptions": [
+                  "default: show fake compile error to user",
+                  "show fake compile error to user",
+                  "do not show fake compile error to user"
+                ]
+              }
+            }
+          }
+        },
+        "initialConfigurations": [
+          {
+            "type": "ll-debug",
+            "request": "launch",
+            "name": "Ask for file name",
+            "program": "${workspaceFolder}/${command:AskForProgramName}",
+            "stopOnEntry": true
+          }
+        ],
+        "configurationSnippets": [
+          {
+            "label": "ll Debug: Launch",
+            "description": "A new configuration for 'debugging' a user selected ll file.",
+            "body": {
+              "type": "ll-debug",
+              "request": "launch",
+              "name": "Ask for file name",
+              "program": "^\"\\${workspaceFolder}/\\${command:AskForProgramName}\"",
+              "stopOnEntry": true
+            }
+          }
+        ],
+        "variables": {
+          "AskForProgramName": "extension.ll-debug.getProgramName"
+        }
+      }
+    ],
+    "commands": [
+      {
+        "command": "ll.helloWorld",
+        "title": "Hello World"
+      },
+      {
+        "command": "extension.ll-debug.getProgramName",
+        "title": "AskForProgramName"
       }
     ]
   },
