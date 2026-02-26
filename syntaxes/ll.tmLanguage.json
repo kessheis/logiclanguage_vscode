@@ -1,19 +1,24 @@
 {
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "ll",
+	"scopeName": "source.ll",
+	"fileTypes": ["ll"],
 	"patterns": [
 		{
 			"include": "#keywords"
 		},
 		{
 			"include": "#strings"
+		},
+		{
+			"include": "#comments"
 		}
 	],
 	"repository": {
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.ll",
-				"match": "\\b(if|while|for|return)\\b"
+				"match": "\\b(if|while|for|return|break)\\b"
 			}]
 		},
 		"strings": {
@@ -26,7 +31,45 @@
 					"match": "\\\\."
 				}
 			]
+		},
+		"comments": {
+			"patterns": [
+				{
+				"name": "comment.block.robot",
+				"begin": "/\\*",
+				"end": "\\*/",
+				"patterns": [
+					{
+					"name": "comment.block.robot",
+					"match": "."
+					}
+				]
+				},
+				{
+				"name": "comment.line.double-slash.robot",
+				"match": "//.*$"
+				},
+				{
+				"name": "string.quoted.double.robot",
+				"match": "\"(?:\\\\.|[^\\\\\"])*\""
+				},
+				{
+				"name": "string.quoted.single.robot",
+				"match": "'(?:\\\\.|[^\\\\'])*'"
+				},
+				{
+				"name": "punctuation.bracket.curly.robot",
+				"match": "[{}]"
+				},
+				{
+				"name": "punctuation.bracket.square.robot",
+				"match": "[\\[\\]]"
+				},
+				{
+				"name": "punctuation.bracket.round.robot",
+				"match": "[()]"
+				}
+			]
 		}
-	},
-	"scopeName": "source.ll"
+	}
 }
