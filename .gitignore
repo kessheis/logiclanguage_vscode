@@ -8,6 +8,11 @@ tsconfig.lsif.json
 *.lsif
 *.db
 *.tsbuildinfo
+out
+dist
+node_modules
+.vscode-test/
+*.vsix
 
 # Don't check in API files. These should be pulled in during install
 vscode*.d.ts
