@@ -17,3 +17,4 @@ node_modules
 # Don't check in API files. These should be pulled in during install
 vscode*.d.ts
 *.vsix
+tst.log
