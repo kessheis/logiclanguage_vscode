@@ -72,32 +72,18 @@
             "properties": {
               "program": {
                 "type": "string",
-                "description": "Absolute path to a text file.",
+                "description": "调试入口的文件路径名称",
                 "default": "${workspaceFolder}/${command:AskForProgramName}"
               },
               "stopOnEntry": {
                 "type": "boolean",
-                "description": "Automatically stop after launch.",
+                "description": "是否启动的时候就断点，默认为true",
                 "default": true
               },
-              "trace": {
-                "type": "boolean",
-                "description": "Enable logging of the Debug Adapter Protocol.",
-                "default": true
-              },
-              "compileError": {
-                "type": "string",
-                "description": "Simulates a compile error in 'launch' request.",
-                "enum": [
-                  "default",
-                  "show",
-                  "hide"
-                ],
-                "enumDescriptions": [
-                  "default: show fake compile error to user",
-                  "show fake compile error to user",
-                  "do not show fake compile error to user"
-                ]
+              "port": {
+                "type": "number",
+                "description": "端口调试需要的端口为0为随机分配，-1或者空为不需要，默认此字段为空，为stdio调试方式",
+                "default": 0
               }
             }
           },
@@ -107,34 +93,20 @@
             ],
             "properties": {
               "program": {
-                "type": "string",
-                "description": "Absolute path to a text file.",
-                "default": "${workspaceFolder}/${command:AskForProgramName}"
-              },
-              "stopOnEntry": {
-                "type": "boolean",
-                "description": "Automatically stop after attach.",
-                "default": true
-              },
-              "trace": {
-                "type": "boolean",
-                "description": "Enable logging of the Debug Adapter Protocol.",
-                "default": true
-              },
-              "compileError": {
-                "type": "string",
-                "description": "Simulates a compile error in 'attach' request.",
-                "enum": [
-                  "default",
-                  "show",
-                  "hide"
-                ],
-                "enumDescriptions": [
-                  "default: show fake compile error to user",
-                  "show fake compile error to user",
-                  "do not show fake compile error to user"
-                ]
-              }
+                  "type": "string",
+                  "description": "调试入口的文件路径名称",
+                  "default": "${workspaceFolder}/${command:AskForProgramName}"
+                },
+                "stopOnEntry": {
+                  "type": "boolean",
+                  "description": "是否启动的时候就断点，默认为true",
+                  "default": true
+                },
+                "port": {
+                  "type": "number",
+                  "description": "端口调试需要的端口为0为随机分配，-1或者空为不需要，默认此字段为空，为stdio调试方式",
+                  "default": 0
+                }
             }
           }
         },
@@ -142,37 +114,52 @@
           {
             "type": "ll-debug",
             "request": "launch",
-            "name": "Ask for file name",
-            "program": "${workspaceFolder}/${command:AskForProgramName}",
+            "name": "ll-debug(launch)",
+            "program": "${file}",
+            "port" : 0,
+            "stopOnEntry": true
+          },
+          {
+            "type": "ll-debug",
+            "request": "attach",
+            "name": "ll-debug(attach)",
+            "program": "${file}",
+            "port" : 0,
             "stopOnEntry": true
           }
         ],
         "configurationSnippets": [
           {
             "label": "ll Debug: Launch",
-            "description": "A new configuration for 'debugging' a user selected ll file.",
+            "description": "Launch 调试方式",
             "body": {
               "type": "ll-debug",
               "request": "launch",
-              "name": "Ask for file name",
-              "program": "^\"\\${workspaceFolder}/\\${command:AskForProgramName}\"",
+              "name": "ll-debug(launch)",
+              "program": "${file}",
+              "port" : 0,
+              "stopOnEntry": true
+            }
+          },
+          {
+            "label": "ll Debug: attach",
+            "description": "attach 调试方式",
+            "body": {
+              "type": "ll-debug",
+              "request": "attach",
+              "name": "ll-debug(attach)",
+              "program": "${file}",
+              "port" : 0,
               "stopOnEntry": true
             }
           }
-        ],
-        "variables": {
-          "AskForProgramName": "extension.ll-debug.getProgramName"
-        }
+        ]
       }
     ],
     "commands": [
       {
         "command": "ll.helloWorld",
         "title": "Hello World"
-      },
-      {
-        "command": "extension.ll-debug.getProgramName",
-        "title": "AskForProgramName"
       }
     ]
   },

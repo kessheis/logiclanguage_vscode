@@ -9,7 +9,8 @@
             "request": "launch",
             "name": "Ask for file name",
             "program": "${workspaceFolder}/trest.ll",
-            "stopOnEntry": true
+            "stopOnEntry": true,
+            "port":0
         }
     ]
 }

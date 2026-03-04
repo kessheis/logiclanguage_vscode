@@ -18,3 +18,4 @@ node_modules
 vscode*.d.ts
 *.vsix
 tst.log
+debug/DAPTest.exe
